@@ -42,9 +42,11 @@ public class ReaderStep1 implements ItemReader<ApprovedTestTrxSummery> {
             }
             sb = sb.append("</statement>");
 
+            // update data after read for processing to stop other batch getting same data
+
             MarkAsHoldResponse response = transactionSPcall.updateBulkReference(sb.toString());
-            log.info(" CBL reader Step1  response: "+response.getOutCode());
-            log.info("  CBL reader Step1  outMessage: "+response.getOutMessage());
+            log.info(" reader Step1  response: "+response.getOutCode());
+            log.info(" reader Step1  outMessage: "+response.getOutMessage());
 
             if(response.getOutCode() == 1){
                 this.iterator = list.iterator();
